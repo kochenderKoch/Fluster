@@ -1,0 +1,21 @@
+{
+    "helloWorld": "Hallo Welt!",
+    "@helloWorld": {
+      "description": "Die konvertionelle Begrüßung in einem neuen Programm"
+    },
+    "@_SETTINGS":{
+    },
+    "generalSettings": "Allgemein Einstellungen",
+    "language": "Sprache",
+    "themeMode": "Designmodus",
+    "lightMode": "Hell", 
+    "darkMode": "Dunkel", 
+    "systemMode": "System",
+    "colorSchema": "Farbschema",
+    "otherSettings": "Andere Einstellungen",
+    "privacy_policy": "Datenschutzerklärung",
+    "openSource": "Open-Source-Hinweis",
+    "about": "Über",
+    "aboutThisApp": "Über die App"
+    
+  }
