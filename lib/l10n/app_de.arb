@@ -3,6 +3,19 @@
     "@helloWorld": {
       "description": "Die konvertionelle Begrüßung in einem neuen Programm"
     },
+    "@_GENERAL":{
+    },
+    "login": "Anmelden",
+    "home": "Startseite",
+    "settings": "Einstellungen", 
+     "@_LOGIN":{
+    },
+    "username": "Benutzername",
+    "password": "Passwort",
+    "loginButton": "Einloggen", 
+    "@_ISARD_EXAMPLE":{
+    },
+    "addButton": "Hinzufügen",
     "@_SETTINGS":{
     },
     "generalSettings": "Allgemein Einstellungen",

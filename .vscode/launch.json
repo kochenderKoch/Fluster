@@ -1,0 +1,35 @@
+{
+    // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
+    // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
+    // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Chrome (Debug)",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main.dart",
+            "args": ["-d", "Chrome", "--web-browser-flag", "--disable-web-security"]
+        },
+        {
+            "name": "Chrome (Release)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "toolArgs": ["-d Chrome", "--release"]
+        },
+        {
+            "name": "Windows (Debug)",
+            "request": "launch",
+            "type": "dart",
+            "toolArgs": ["-d Windows"]
+        },
+        {
+            "name": "Windows (Release)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "toolArgs": ["-d Windows", "--release"]
+        },
+    ]
+}

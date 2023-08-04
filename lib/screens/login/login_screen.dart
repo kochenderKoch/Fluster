@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../components/custom_text_field.dart';
 
@@ -45,30 +46,30 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 20.0, horizontal: 50),
-                    child: Text("Login"),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 20.0, horizontal: 50),
+                    child: Text(AppLocalizations.of(context)!.login),
                   ),
                   CustomTextField(
                     controller: controllerUsername,
                     prefixIcon: const Icon(Icons.person),
-                    hintText: "Username",
+                    hintText: AppLocalizations.of(context)!.username,
                   ),
                   CustomTextField(
                     controller: controllerPassword,
                     obscureText: true,
                     prefixIcon: const Icon(Icons.password),
-                    hintText: "Passwort",
+                    hintText: AppLocalizations.of(context)!.password,
                   ),
                   ElevatedButton(
                       // style: ButtonStyle(
                       //     backgroundColor: MaterialStatePropertyAll(
                       //         themeProvider.getTheme().colorScheme.onSecondary)),
                       onPressed: () {},
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Text("Login"),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                        child: Text(AppLocalizations.of(context)!.loginButton),
                       )),
                 ],
               ),

@@ -3,6 +3,19 @@
     "@helloWorld": {
       "description": "The conventional newborn programmer greeting"
     },
+    "@_GENERAL":{
+    },
+    "login": "Login",
+    "home": "Home",
+    "settings": "Settings", 
+    "@_LOGIN":{
+    },
+    "username": "Username",
+    "password": "Password",
+    "loginButton": "Login", 
+    "@_ISARD_EXAMPLE":{
+    },
+    "addButton": "Add",
     "@_SETTINGS": {
       
     },

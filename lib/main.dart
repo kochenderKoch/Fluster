@@ -1,18 +1,21 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:fluster/screens/main_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'l10n/l10n.dart';
 import 'providers/auth_provider.dart';
 import 'providers/settings_provider.dart';
-import 'screens/home/home_screen.dart';
-import 'screens/login/login_screen.dart';
+import 'providers/text_provider.dart';
 
 void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(
         create: (_) => AuthProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => TextProvider(),
       ),
       ChangeNotifierProvider(
         create: (_) => SettingsProvider(),
@@ -28,7 +31,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    AuthProvider authProvider = context.watch();
     SettingsProvider settingsProvider = context.watch();
     return MaterialApp(
       title: 'AppWrite Example',
@@ -49,9 +51,7 @@ class MyApp extends StatelessWidget {
         typography: Typography.material2021(platform: TargetPlatform.windows),
       ),
       themeMode: settingsProvider.themeMode,
-      home: !authProvider.isAuthenticated
-          ? const LoginScreen()
-          : const HomeScreen(),
+      home: const MainScaffold(),
     );
   }
 }
