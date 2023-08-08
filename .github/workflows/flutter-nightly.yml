@@ -1,12 +1,11 @@
 name: Build Nightly
 
-# on:
-#   push:
-#     branches:
-#       - main
-on: workflow_dispatch
-
-
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+ 
 env:
   LLVM_VERSION: "15.0.6"
   FLUTTER_VERSION: "3.10.6"
@@ -53,7 +52,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         #if: startsWith(github.ref, 'refs/tags/')
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
           prerelease: true
           tag_name: ${{env.TAG_NAME}}

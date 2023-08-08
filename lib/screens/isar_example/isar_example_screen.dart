@@ -20,8 +20,14 @@ class IsarExampleScreen extends StatelessWidget {
           child: ListView.builder(
             itemCount: textProvider.currentTexts.length,
             itemBuilder: (context, index) {
+              m_text.Text current = textProvider.currentTexts[index];
               return ListTile(
-                title: Text(textProvider.currentTexts[index].text.toString()),
+                title: Text(current.text.toString()),
+                trailing: IconButton(
+                    onPressed: () {
+                      textProvider.removeText(current);
+                    },
+                    icon: const Icon(Icons.delete)),
               );
             },
           ),
