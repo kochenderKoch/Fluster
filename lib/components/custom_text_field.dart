@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class CustomTextField extends StatefulWidget {
-  CustomTextField(
-      {Key? key,
-      required this.controller,
-      this.obscureText = false,
-      this.prefixIcon,
-      this.hintText})
-      : super(key: key);
+  ///
+  CustomTextField({
+    required this.controller,
+    super.key,
+    this.obscureText = false,
+    this.prefixIcon,
+    this.hintText,
+  });
 
   TextEditingController controller;
   bool obscureText;
@@ -27,16 +27,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return SizedBox(
       width: 350,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8),
         child: TextFormField(
           controller: widget.controller,
-          obscureText: widget.obscureText ? widget._passwordVisibility : false,
+          obscureText: widget.obscureText && widget._passwordVisibility,
           decoration: InputDecoration(
             suffixIcon: widget.obscureText
                 ? IconButton(
-                    icon: Icon(!widget._passwordVisibility
-                        ? Icons.visibility
-                        : Icons.visibility_off),
+                    icon: Icon(
+                      !widget._passwordVisibility
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
                     onPressed: () {
                       setState(() {
                         widget._passwordVisibility =
@@ -57,14 +59,17 @@ class _CustomTextFieldState extends State<CustomTextField> {
               fontWeight: FontWeight.w300,
             ),
             border: const OutlineInputBorder(
-                borderRadius: BorderRadius.zero,
-                borderSide: BorderSide(width: .5)),
+              borderRadius: BorderRadius.zero,
+              borderSide: BorderSide(width: .5),
+            ),
             enabledBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.zero,
-                borderSide: BorderSide(width: .5)),
+              borderRadius: BorderRadius.zero,
+              borderSide: BorderSide(width: .5),
+            ),
             focusedBorder: const OutlineInputBorder(
-                borderRadius: BorderRadius.zero,
-                borderSide: BorderSide(width: .5)),
+              borderRadius: BorderRadius.zero,
+              borderSide: BorderSide(width: .5),
+            ),
             errorBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.zero,
               borderSide: BorderSide(width: .5),
