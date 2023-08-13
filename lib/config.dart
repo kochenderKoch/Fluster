@@ -1,3 +1,5 @@
+/// All static [Config] settings for the Application
 class Config {
-  static const String ENDPOINT = "";
+  /// The Api-Endpoint
+  static const String endPoint = '';
 }

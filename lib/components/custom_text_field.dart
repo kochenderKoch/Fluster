@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// A custom styled [TextField]
 class CustomTextField extends StatefulWidget {
-  ///
-  CustomTextField({
+  /// Creates an [CustomTextField] Widget
+  const CustomTextField({
     required this.controller,
     super.key,
     this.obscureText = false,
@@ -10,18 +11,25 @@ class CustomTextField extends StatefulWidget {
     this.hintText,
   });
 
-  TextEditingController controller;
-  bool obscureText;
-  Icon? prefixIcon;
-  String? hintText;
+  /// The [TextEditingController] of the [TextField]
+  final TextEditingController controller;
 
-  bool _passwordVisibility = true;
+  /// Is the Text obsecured?
+  final bool obscureText;
+
+  /// The Icon in front of the [TextField]
+  final Icon? prefixIcon;
+
+  /// [hintText] that is displayed in the [TextField] when the input is empty.
+  final String? hintText;
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
 }
 
 class _CustomTextFieldState extends State<CustomTextField> {
+  bool _passwordVisibility = true;
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -30,19 +38,18 @@ class _CustomTextFieldState extends State<CustomTextField> {
         padding: const EdgeInsets.all(8),
         child: TextFormField(
           controller: widget.controller,
-          obscureText: widget.obscureText && widget._passwordVisibility,
+          obscureText: widget.obscureText && _passwordVisibility,
           decoration: InputDecoration(
             suffixIcon: widget.obscureText
                 ? IconButton(
                     icon: Icon(
-                      !widget._passwordVisibility
+                      !_passwordVisibility
                           ? Icons.visibility
                           : Icons.visibility_off,
                     ),
                     onPressed: () {
                       setState(() {
-                        widget._passwordVisibility =
-                            !widget._passwordVisibility;
+                        _passwordVisibility = !_passwordVisibility;
                       });
                     },
                   )

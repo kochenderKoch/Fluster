@@ -1,16 +1,16 @@
 import 'package:fluster/internal/http_client.dart';
 
-/// An Wrapper around an API result
+/// An Wrapper around an [ApiResult]
 class ApiResult<T> {
   /// Constructor
   ApiResult(this.content, this.response);
 
-  /// HTTP-Response
+  /// The [HttpResponse] as a response to an HTTP-Request
   final HttpResponse response;
 
-  /// content that is received from a HTTP-Response
+  /// Content of type [T] for further processing.
   final T? content;
 
-  /// HTTP-Request was success
+  /// Was the [HttpResponse] sucessfull?
   bool get success => response.success;
 }

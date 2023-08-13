@@ -1,13 +1,16 @@
 import 'package:fluster/providers/text_provider.dart';
 import 'package:fluster/screens/isar_example/isar_example_screen.dart';
 import 'package:fluster/screens/login/login_screen.dart';
+import 'package:fluster/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 
-import 'settings/settings_screen.dart';
-
+/// This [MainScaffold] is always visible after sucessfull login.
+///
+/// It displays the [BottomNavigationBar] to navigate to different Screens
 class MainScaffold extends StatefulWidget {
+  /// Constructor of [MainScaffold]
   const MainScaffold({super.key});
 
   @override
@@ -23,18 +26,17 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    TextProvider textProvider = context.watch();
+    final textProvider = context.watch<TextProvider>();
     return Scaffold(
       appBar: AppBar(
         actions: [
-          _selectedIndex == 1
-              ? IconButton(
-                  onPressed: () {
-                    textProvider.getTexts();
-                  },
-                  icon: const Icon(Icons.refresh),
-                )
-              : const SizedBox.shrink()
+          if (_selectedIndex == 1)
+            IconButton(
+              onPressed: textProvider.getTexts,
+              icon: const Icon(Icons.refresh),
+            )
+          else
+            const SizedBox.shrink()
         ],
       ),
       body: [

@@ -2,82 +2,87 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// Extension for [DropDown] Widget
 extension DropDown on Locale {
+  /// Convert [countryCode] to readable Output
   String toDropDown() {
     switch (countryCode) {
-      case "en":
-        return "English";
-      case "de":
-        return "Deutsch";
+      case 'en':
+        return 'English';
+      case 'de':
+        return 'Deutsch';
       default:
-        return "English";
+        return 'English';
     }
   }
 }
 
+/// Provider for Settings
 class SettingsProvider extends ChangeNotifier {
-  Locale _appLocale = const Locale('en');
-  FlexScheme _theme = FlexScheme.amber;
-  ThemeMode _themeMode = ThemeMode.light;
-
-  Locale get appLocal => _appLocale;
-  FlexScheme get theme => _theme;
-  ThemeMode get themeMode => _themeMode;
-
+  /// [SettingsProvider] Constructor
   SettingsProvider() {
     fetchLocale();
     fetchThemeMode();
     fetchSchema();
   }
 
-  fetchSchema() async {
-    var prefs = await SharedPreferences.getInstance();
-    debugPrint(prefs.getString("schema"));
+  Locale _appLocale = const Locale('en');
+  FlexScheme _theme = FlexScheme.amber;
+  ThemeMode _themeMode = ThemeMode.light;
+
+  /// In the App selected: [Locale]
+  Locale get appLocal => _appLocale;
+
+  /// In the App selected: [FlexScheme]
+  FlexScheme get theme => _theme;
+
+  /// In the App selected: [ThemeMode]
+  ThemeMode get themeMode => _themeMode;
+
+  /// Catch saved [FlexScheme] from [SharedPreferences]
+  Future<void> fetchSchema() async {
+    final prefs = await SharedPreferences.getInstance();
+    debugPrint(prefs.getString('schema'));
     if (prefs.getString('schema') != null) {
       _theme = FlexScheme.values.firstWhere(
-        (element) => element.name == prefs.getString("schema"),
+        (element) => element.name == prefs.getString('schema'),
         orElse: () => FlexScheme.amber,
       );
       notifyListeners();
-      return Null;
     }
     _theme = FlexScheme.amber;
     notifyListeners();
-    return Null;
   }
 
-  void changeSchema(FlexScheme schema) async {
-    var prefs = await SharedPreferences.getInstance();
+  /// Change [FlexScheme] and write it to [SharedPreferences]
+  Future<void> changeSchema(FlexScheme schema) async {
+    final prefs = await SharedPreferences.getInstance();
     if (_theme == schema) {
       return;
     }
-
     _theme = schema;
-
-    debugPrint(schema.name.toString());
-    await prefs.setString('schema', schema.name.toString());
+    await prefs.setString('schema', schema.name);
 
     notifyListeners();
   }
 
-  fetchThemeMode() async {
-    var prefs = await SharedPreferences.getInstance();
-    if (prefs.getString('themeMode') == "light") {
+  /// Catch saved [ThemeMode] from [SharedPreferences]
+  Future<void> fetchThemeMode() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getString('themeMode') == 'light') {
       _themeMode = ThemeMode.light;
       notifyListeners();
-      return Null;
-    } else if (prefs.getString('themeMode') == "dark") {
+    } else if (prefs.getString('themeMode') == 'dark') {
       _themeMode = ThemeMode.dark;
       notifyListeners();
-      return Null;
     }
     _themeMode = ThemeMode.system;
     notifyListeners();
-    return Null;
   }
 
-  void changeThemeMode(ThemeMode mode) async {
-    var prefs = await SharedPreferences.getInstance();
+  /// Change [ThemeMode] and write it to [SharedPreferences]
+  Future<void> changeThemeMode(ThemeMode mode) async {
+    final prefs = await SharedPreferences.getInstance();
     if (_themeMode == mode) {
       return;
     }
@@ -94,29 +99,29 @@ class SettingsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  fetchLocale() async {
-    var prefs = await SharedPreferences.getInstance();
+  /// Catch saved [Locale] from [SharedPreferences]
+  Future<void> fetchLocale() async {
+    final prefs = await SharedPreferences.getInstance();
     if (prefs.getString('language_code') == null) {
       _appLocale = const Locale('en');
       notifyListeners();
-      return Null;
     }
     _appLocale = Locale(prefs.getString('language_code')!);
     notifyListeners();
-    return Null;
   }
 
-  void changeLanguage(Locale type) async {
-    var prefs = await SharedPreferences.getInstance();
+  /// Change [Locale] and write it to [SharedPreferences]
+  Future<void> changeLanguage(Locale type) async {
+    final prefs = await SharedPreferences.getInstance();
     if (_appLocale == type) {
       return;
     }
-    if (type == const Locale("de")) {
-      _appLocale = const Locale("de");
+    if (type == const Locale('de')) {
+      _appLocale = const Locale('de');
       await prefs.setString('language_code', 'de');
       await prefs.setString('countryCode', 'GER');
     } else {
-      _appLocale = const Locale("en");
+      _appLocale = const Locale('en');
       await prefs.setString('language_code', 'en');
       await prefs.setString('countryCode', 'US');
     }

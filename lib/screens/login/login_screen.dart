@@ -1,10 +1,14 @@
+import 'package:fluster/components/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../components/custom_text_field.dart';
-
+/// This [LoginScreen] is visible when opening application with
+/// no authorization set.
+///
+/// It displays an login prompt for the user to log in.
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  /// Constructor of [LoginScreen]
+  const LoginScreen({super.key});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -28,7 +32,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     controllerUsername.dispose();
     controllerPassword.dispose();
     super.dispose();
@@ -40,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Center(
         child: Card(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8),
             child: Form(
               key: _formKey,
               child: Column(
@@ -48,7 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 20.0, horizontal: 50),
+                      vertical: 20,
+                      horizontal: 50,
+                    ),
                     child: Text(AppLocalizations.of(context)!.login),
                   ),
                   CustomTextField(
@@ -63,14 +68,16 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: AppLocalizations.of(context)!.password,
                   ),
                   ElevatedButton(
-                      // style: ButtonStyle(
-                      //     backgroundColor: MaterialStatePropertyAll(
-                      //         themeProvider.getTheme().colorScheme.onSecondary)),
-                      onPressed: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                        child: Text(AppLocalizations.of(context)!.loginButton),
-                      )),
+                    // style: ButtonStyle(
+                    //     backgroundColor: MaterialStatePropertyAll(
+                    //         themeProvider.getTheme().colorScheme.
+                    // onSecondary)),
+                    onPressed: () {},
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: Text(AppLocalizations.of(context)!.loginButton),
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -2,10 +2,13 @@ import 'package:isar/isar.dart';
 
 part 'text.g.dart';
 
+/// Model for simple [Text]
 @collection
 class Text {
-  Id id = Isar.autoIncrement; // you can also use id = null to auto increment
+  /// AutoIncrement [Id]
+  Id id = Isar.autoIncrement;
 
+  /// [text] of the Dataset. The value is indexed.
   @Index(type: IndexType.value)
   String? text;
 }
