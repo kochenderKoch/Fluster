@@ -1,28 +1,18 @@
 import 'package:fluster/providers/text_provider.dart';
-import 'package:fluster/screens/isar_example/isar_example_screen.dart';
-import 'package:fluster/screens/login/login_screen.dart';
-import 'package:fluster/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 
 /// This [MainScaffold] is always visible after sucessfull login.
 ///
 /// It displays the [BottomNavigationBar] to navigate to different Screens
-class MainScaffold extends StatefulWidget {
+class MainScaffold extends StatelessWidget {
   /// Constructor of [MainScaffold]
-  const MainScaffold({super.key});
+  const MainScaffold(this.navigationShell, {super.key});
 
-  @override
-  State<MainScaffold> createState() => _MainScaffoldState();
-}
-
-class _MainScaffoldState extends State<MainScaffold> {
-  var _selectedIndex = 0;
-  @override
-  void initState() {
-    super.initState();
-  }
+  /// The navigation shell and container for the branch Navigators.
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +20,7 @@ class _MainScaffoldState extends State<MainScaffold> {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          if (_selectedIndex == 1)
+          if (navigationShell.currentIndex == 1)
             IconButton(
               onPressed: textProvider.getTexts,
               icon: const Icon(Icons.refresh),
@@ -39,11 +29,7 @@ class _MainScaffoldState extends State<MainScaffold> {
             const SizedBox.shrink()
         ],
       ),
-      body: [
-        const LoginScreen(),
-        IsarExampleScreen(),
-        const SettingsScreen(),
-      ].elementAt(_selectedIndex),
+      body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -59,15 +45,20 @@ class _MainScaffoldState extends State<MainScaffold> {
             label: AppLocalizations.of(context)!.settings,
           ),
         ],
-        currentIndex: _selectedIndex,
-        onTap: (int index) {
-          setState(
-            () {
-              _selectedIndex = index;
-            },
-          );
-        },
+        currentIndex: navigationShell.currentIndex,
+        onTap: _onTap,
       ),
+    );
+  }
+
+  void _onTap(int index) {
+    navigationShell.goBranch(
+      index,
+      // A common pattern when using bottom navigation bars is to support
+      // navigating to the initial location when tapping the item that is
+      // already active. This example demonstrates how to support this behavior,
+      // using the initialLocation parameter of goBranch.
+      initialLocation: index == navigationShell.currentIndex,
     );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:fluster/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -174,12 +175,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
               tiles: [
                 SettingsTile.navigation(
                   title: Text(AppLocalizations.of(context)!.openSource),
-                  onPressed: (context) {},
+                  onPressed: (context) {
+                    context.go('/settings/opensource');
+                  },
                   trailing: const Icon(Icons.arrow_right),
                 ),
                 SettingsTile.navigation(
                   title: Text(AppLocalizations.of(context)!.privacy_policy),
-                  onPressed: (context) {},
+                  onPressed: (context) {
+                    context.go('/settings/privacy');
+                  },
                   trailing: const Icon(Icons.arrow_right),
                 ),
                 SettingsTile.navigation(

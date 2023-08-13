@@ -1,13 +1,13 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:fluster/config/routes.dart';
 import 'package:fluster/l10n/l10n.dart';
 import 'package:fluster/providers/auth_provider.dart';
 import 'package:fluster/providers/settings_provider.dart';
 import 'package:fluster/providers/text_provider.dart';
-import 'package:fluster/screens/main_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
   runApp(
     MultiProvider(
       providers: [
@@ -35,7 +35,7 @@ class FlusterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final settingsProvider = context.watch<SettingsProvider>();
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Fluster Application',
       localizationsDelegates: L10n.localizationsDelegates,
       supportedLocales: L10n.all,
@@ -54,7 +54,7 @@ class FlusterApp extends StatelessWidget {
         typography: Typography.material2021(platform: TargetPlatform.windows),
       ),
       themeMode: settingsProvider.themeMode,
-      home: const MainScaffold(),
+      routerConfig: router,
     );
   }
 }

@@ -42,13 +42,13 @@ class SettingsProvider extends ChangeNotifier {
   /// Catch saved [FlexScheme] from [SharedPreferences]
   Future<void> fetchSchema() async {
     final prefs = await SharedPreferences.getInstance();
-    debugPrint(prefs.getString('schema'));
     if (prefs.getString('schema') != null) {
       _theme = FlexScheme.values.firstWhere(
         (element) => element.name == prefs.getString('schema'),
         orElse: () => FlexScheme.amber,
       );
       notifyListeners();
+      return;
     }
     _theme = FlexScheme.amber;
     notifyListeners();
@@ -72,9 +72,11 @@ class SettingsProvider extends ChangeNotifier {
     if (prefs.getString('themeMode') == 'light') {
       _themeMode = ThemeMode.light;
       notifyListeners();
+      return;
     } else if (prefs.getString('themeMode') == 'dark') {
       _themeMode = ThemeMode.dark;
       notifyListeners();
+      return;
     }
     _themeMode = ThemeMode.system;
     notifyListeners();
@@ -105,6 +107,7 @@ class SettingsProvider extends ChangeNotifier {
     if (prefs.getString('language_code') == null) {
       _appLocale = const Locale('en');
       notifyListeners();
+      return;
     }
     _appLocale = Locale(prefs.getString('language_code')!);
     notifyListeners();

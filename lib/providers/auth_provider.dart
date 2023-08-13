@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// Provider for Auth
 class AuthProvider with ChangeNotifier {
-  bool _isAuthenticated = false;
+  bool _isAuthenticated = true; //false;
 
   /// Is waiting
   bool isLoading = false;
