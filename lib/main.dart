@@ -7,7 +7,7 @@ import 'package:fluster/providers/text_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-void main() async {
+void main() {
   runApp(
     MultiProvider(
       providers: [

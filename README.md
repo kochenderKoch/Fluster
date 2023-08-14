@@ -14,6 +14,7 @@
 - [x] [Isar-Database](https://github.com/isar/isar) Example
 - [ ] Dio-Framework - [Medium-Example](https://medium.com/dreamwod-tech/flutter-dio-framework-best-practices-668985fc75b7), [LogRocket-Example](https://blog.logrocket.com/networking-flutter-using-dio/)
 - [ ] Logger
+- [ ] Notifications
 - [x] Lints - [Medium](https://medium.com/@razvantmz/improve-your-coding-with-flutter-lints-58423484c8f7) - [Dart](https://dart.dev/tools/analysis)
   - Used: [package:very_good_analysis/analysis_options.yaml](https://pub.dev/packages/very_good_analysis)
 - [x] JSON-Serialisierung

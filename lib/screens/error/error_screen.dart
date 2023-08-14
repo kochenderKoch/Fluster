@@ -13,7 +13,17 @@ class ErrorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('ErrorScreeen: ${exception?.message}'),
+        child: Column(
+          children: [
+            Text('ErrorScreeen: ${exception?.message}'),
+            ElevatedButton(
+              onPressed: () {
+                context.go('/home');
+              },
+              child: const Text('Zurück zu Home'),
+            )
+          ],
+        ),
       ),
     );
   }
