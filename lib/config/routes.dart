@@ -1,4 +1,5 @@
 import 'package:fluster/providers/auth_provider.dart';
+import 'package:fluster/screens/dio/dio_screen.dart';
 import 'package:fluster/screens/error/error_screen.dart';
 import 'package:fluster/screens/home/home_screnn.dart';
 import 'package:fluster/screens/isar_example/isar_example_screen.dart';
@@ -8,11 +9,13 @@ import 'package:fluster/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey1 = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey2 = GlobalKey<NavigatorState>();
 final _sectionNavigatorKey3 = GlobalKey<NavigatorState>();
+final _sectionNavigatorKey4 = GlobalKey<NavigatorState>();
 
 /// GoRouter configuration
 final router = GoRouter(
@@ -23,6 +26,15 @@ final router = GoRouter(
     GoRoute(
       path: '/login',
       builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      redirect: handleAuthentication,
+      path: '/dio/logs',
+      parentNavigatorKey: _rootNavigatorKey,
+      builder: (context, state) {
+        final talker = state.extra! as Talker;
+        return TalkerScreen(talker: talker);
+      },
     ),
     StatefulShellRoute.indexedStack(
       builder: (context, state, navigationShell) {
@@ -50,6 +62,16 @@ final router = GoRouter(
         ),
         StatefulShellBranch(
           navigatorKey: _sectionNavigatorKey3,
+          routes: <RouteBase>[
+            GoRoute(
+              redirect: handleAuthentication,
+              path: '/dio',
+              builder: (context, state) => const DioExampleScreen(),
+            ),
+          ],
+        ),
+        StatefulShellBranch(
+          navigatorKey: _sectionNavigatorKey4,
           routes: <RouteBase>[
             GoRoute(
               path: '/settings',

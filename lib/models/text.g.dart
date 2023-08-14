@@ -81,9 +81,10 @@ Text _textDeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Text();
+  final object = Text(
+    reader.readStringOrNull(offsets[0]),
+  );
   object.id = id;
-  object.text = reader.readStringOrNull(offsets[0]);
   return object;
 }
 
@@ -614,3 +615,16 @@ extension TextQueryProperty on QueryBuilder<Text, Text, QQueryProperty> {
     });
   }
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+Text _$TextFromJson(Map<String, dynamic> json) => Text(
+      json['text'] as String?,
+    )..id = json['id'] as int;
+
+Map<String, dynamic> _$TextToJson(Text instance) => <String, dynamic>{
+      'id': instance.id,
+      'text': instance.text,
+    };

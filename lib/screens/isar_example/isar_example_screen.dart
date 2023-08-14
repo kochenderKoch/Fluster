@@ -50,8 +50,7 @@ class IsarExampleScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () {
-                  textProvider
-                      .addText(m_text.Text()..text = _controllerAdd.text);
+                  textProvider.addText(m_text.Text(_controllerAdd.text));
                 },
                 child: Text(AppLocalizations.of(context)!.addButton),
               )

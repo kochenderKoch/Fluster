@@ -2,6 +2,8 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:fluster/config/routes.dart';
 import 'package:fluster/l10n/l10n.dart';
 import 'package:fluster/providers/auth_provider.dart';
+import 'package:fluster/providers/dio_provider.dart';
+import 'package:fluster/providers/logging_provider.dart';
 import 'package:fluster/providers/settings_provider.dart';
 import 'package:fluster/providers/text_provider.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +17,19 @@ void main() {
           create: (_) => AuthProvider(),
         ),
         ChangeNotifierProvider(
+          create: (_) => LoggingProvider(),
+        ),
+        ChangeNotifierProvider(
           create: (_) => TextProvider(),
+        ),
+        ChangeNotifierProxyProvider<LoggingProvider, DioProvider>(
+          create: (context) => DioProvider(
+            context.read<LoggingProvider>(),
+          ),
+          update: (context, value, previous) {
+            previous?.setLoggingProvider(value);
+            return previous ?? DioProvider(value);
+          },
         ),
         ChangeNotifierProvider(
           create: (_) => SettingsProvider(),

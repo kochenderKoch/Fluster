@@ -19,6 +19,7 @@ class MainScaffold extends StatelessWidget {
     final textProvider = context.watch<TextProvider>();
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         actions: [
           if (navigationShell.currentIndex == 1)
             IconButton(
@@ -30,23 +31,32 @@ class MainScaffold extends StatelessWidget {
         ],
       ),
       body: navigationShell,
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.login),
-            label: AppLocalizations.of(context)!.login,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: AppLocalizations.of(context)!.home,
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.settings),
-            label: AppLocalizations.of(context)!.settings,
-          ),
-        ],
-        currentIndex: navigationShell.currentIndex,
-        onTap: _onTap,
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          canvasColor: Theme.of(context).colorScheme.secondary,
+        ),
+        child: BottomNavigationBar(
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.login),
+              label: AppLocalizations.of(context)!.login,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.home),
+              label: AppLocalizations.of(context)!.home,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.network_check),
+              label: AppLocalizations.of(context)!.home,
+            ),
+            BottomNavigationBarItem(
+              icon: const Icon(Icons.settings),
+              label: AppLocalizations.of(context)!.settings,
+            ),
+          ],
+          currentIndex: navigationShell.currentIndex,
+          onTap: _onTap,
+        ),
       ),
     );
   }
