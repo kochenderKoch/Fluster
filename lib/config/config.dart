@@ -1,5 +1,8 @@
 /// All static [Config] settings for the Application
 class Config {
-  /// The Api-Endpoint
-  static const String endPoint = '';
+  /// Random Constant
+  static const String random = '';
+
+  /// is the logging detailed?
+  static const bool isDetailedLogging = false;
 }

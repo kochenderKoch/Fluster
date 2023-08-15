@@ -1,4 +1,4 @@
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 /// All NetError Codes
 enum NetErrorType {
@@ -21,44 +21,44 @@ enum NetErrorType {
 ///
 class HttpResponse {
   /// Construct an empty [HttpResponse] Instance
-  /// and set the [NetErrorType] from the raw [http.Response]
+  /// and set the [NetErrorType] from the raw [Response]
   HttpResponse(this.raw) {
     if (raw.statusCode == 200) {
       errorType = NetErrorType.none;
-    } else if (raw.statusCode >= 500 && raw.statusCode < 600) {
+    } else if (raw.statusCode! >= 500 && raw.statusCode! < 600) {
       errorType = NetErrorType.timedOut;
-    } else if (raw.statusCode >= 400 && raw.statusCode < 500) {
+    } else if (raw.statusCode! >= 400 && raw.statusCode! < 500) {
       errorType = NetErrorType.denied;
     }
   }
 
-  /// Construct an empty [HttpResponse] Instance
-  /// with [NetErrorType.unknown] Error
-  HttpResponse.error()
-      : raw = http.Response('', 404),
-        errorType = NetErrorType.unknown;
+  // /// Construct an empty [HttpResponse] Instance
+  // /// with [NetErrorType.unknown] Error
+  // HttpResponse.error()
+  //     : raw = Response(data: '', 404),
+  //       errorType = NetErrorType.unknown;
 
-  /// Construct an empty [HttpResponse] Instance
-  /// with [NetErrorType.none] Error
-  HttpResponse.empty()
-      : raw = http.Response('', 200),
-        errorType = NetErrorType.none;
+  // /// Construct an empty [HttpResponse] Instance
+  // /// with [NetErrorType.none] Error
+  // HttpResponse.empty()
+  //     : raw = http.Response('', 200),
+  //       errorType = NetErrorType.none;
 
-  /// The [http.Response] from the called [http.Request]
-  final http.Response raw;
+  /// The [Response] from the an HTTP Request
+  final Response<String> raw;
 
-  /// The [http.Response] Error Code
+  /// The [Response] Error Code
   NetErrorType errorType = NetErrorType.none;
 
-  /// Was the [http.Response] success?
+  /// Was the [Response] success?
   bool get success => errorType == NetErrorType.none;
 
-  /// Get the body of the raw [http.Response]
-  String get body => raw.body;
+  /// Get the body of the raw [Response]
+  String get body => raw.data.toString();
 
-  /// Get a [Map] of the headers from the raw [http.Response]
-  Map<String, String> get headers => raw.headers;
+  /// Get a [Map] of the headers from the raw [Response]
+  Map<String, List<String>> get headers => raw.headers.map;
 
-  /// Get the Status-Code from the raw [http.Response]
-  int get statusCode => raw.statusCode;
+  /// Get the Status-Code from the raw [Response]
+  int get statusCode => raw.statusCode!;
 }

@@ -53,19 +53,3 @@ class KontestsModel {
   /// to Json
   Map<String, dynamic> toJson() => _$KontestsModelToJson(this);
 }
-
-// /// All Models for API Response from https://kontests.net/api/v1/all
-// @JsonSerializable()
-// class AllKontestsModels {
-//   /// Constructor of [AllKontestsModels]
-//   AllKontestsModels(this.kontestsModels);
-
-//   /// A necessary factory constructor for creating a new User instance
-//   /// from a map. Pass the map to the generated `_$TextFromJson()` constructor.
-//   /// The constructor is named after the source class, in this case, User.
-//   factory AllKontestsModels.fromJson(Map<String, dynamic> json) =>
-//       _$AllKontestsModelsFromJson(json);
-
-//   /// All [KontestsModel] in a list
-//   List<KontestsModel> kontestsModels;
-// }
