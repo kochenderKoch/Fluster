@@ -33,6 +33,10 @@
   - [ ] Widget
 - [ ] Animations
   - [ ] Splashscreen
+    - [ ] Lottie
+      - [x] After Initialization
+      - [ ] Native Android / iOS - [Medium](https://medium.com/@turkergurel19/native-animated-splash-screen-with-lottie-in-flutter-21761532813b)
+    - [ ] Rive
   - [ ] Buttons
 - [ ] Exception Handling
 - [x] Routes - [Medium](https://medium.com/@antonio.tioypedro1234/flutter-go-router-the-essential-guide-349ef39ec5b3)

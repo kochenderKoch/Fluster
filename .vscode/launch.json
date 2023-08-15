@@ -15,8 +15,8 @@
             "name": "Chrome (Release)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile",
-            "toolArgs": ["-d Chrome", "--release"]
+            "flutterMode": "release",
+            "toolArgs": ["-d Chrome"]
         },
         {
             "name": "Windows (Debug)",
@@ -28,8 +28,8 @@
             "name": "Windows (Release)",
             "request": "launch",
             "type": "dart",
-            "flutterMode": "profile",
-            "toolArgs": ["-d Windows", "--release"]
+            "flutterMode": "release",
+            "toolArgs": ["-d Windows"]
         },
     ]
 }

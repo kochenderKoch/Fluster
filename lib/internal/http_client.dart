@@ -45,7 +45,7 @@ class HttpResponse {
   //       errorType = NetErrorType.none;
 
   /// The [Response] from the an HTTP Request
-  final Response<String> raw;
+  final Response<dynamic> raw;
 
   /// The [Response] Error Code
   NetErrorType errorType = NetErrorType.none;

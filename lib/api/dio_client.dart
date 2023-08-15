@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:fluster/api/api_result.dart';
 import 'package:fluster/api/dio_exception.dart';
@@ -60,13 +58,16 @@ class DioClient {
       // Perform GET request to the endpoint "/users/<id>"
       // TODO(kochenderKoch): Change Options to JSON
       // ignore: omit_local_variable_types
-      final Response<String> response = await _dio.get(
+      final Response<List<dynamic>> response = await _dio.get(
         Endpoints.getAllKontests,
-        options: Options(responseType: ResponseType.plain),
+        options: Options(responseType: ResponseType.json),
       );
-
+      if (response.statusCode != 200) {
+        talker.handle(ArgumentError('Send failed'));
+        throw Exception();
+      }
       return ApiResult(
-        (jsonDecode(response.data!) as List<dynamic>)
+        response.data!
             .map(
               (model) => KontestsModel.fromJson(model as Map<String, dynamic>),
             )
@@ -75,9 +76,11 @@ class DioClient {
       );
     } on DioException catch (error) {
       final errorMessage = DioExceptionImpl.fromDioException(error).toString();
+      talker.handle(error);
       throw ArgumentError(errorMessage);
     } catch (e) {
       if (kDebugMode) debugPrint(e.toString());
+      talker.handle(e);
       throw ArgumentError(e.toString());
     }
   }

@@ -6,6 +6,7 @@ import 'package:fluster/screens/isar_example/isar_example_screen.dart';
 import 'package:fluster/screens/login/login_screen.dart';
 import 'package:fluster/screens/main_scaffold.dart';
 import 'package:fluster/screens/settings/settings_screen.dart';
+import 'package:fluster/screens/splash/lottie_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -20,9 +21,13 @@ final _sectionNavigatorKey4 = GlobalKey<NavigatorState>();
 /// GoRouter configuration
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/login',
+  initialLocation: '/splash',
   errorBuilder: (context, state) => ErrorScreen(state.error),
   routes: <RouteBase>[
+    GoRoute(
+      path: '/splash',
+      builder: (context, state) => const SplashScreen(),
+    ),
     GoRoute(
       path: '/login',
       builder: (context, state) => const LoginScreen(),
@@ -33,7 +38,13 @@ final router = GoRouter(
       parentNavigatorKey: _rootNavigatorKey,
       builder: (context, state) {
         final talker = state.extra! as Talker;
-        return TalkerScreen(talker: talker);
+        return TalkerScreen(
+          talker: talker,
+          theme: TalkerScreenTheme(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            textColor: Theme.of(context).colorScheme.onBackground,
+          ),
+        );
       },
     ),
     StatefulShellRoute.indexedStack(
