@@ -1,4 +1,5 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:fluster/providers/auth_provider.dart';
 import 'package:fluster/providers/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -46,6 +47,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     final settings = context.watch<SettingsProvider>();
+    final authProvider = context.watch<AuthProvider>();
     return Center(
       child: SettingsList(
         lightTheme: SettingsThemeData(
@@ -190,6 +192,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 title: Text(AppLocalizations.of(context)!.about),
                 onPressed: (context) {},
                 trailing: const Icon(Icons.arrow_right),
+              ),
+              SettingsTile.navigation(
+                title: const Text('Logout'),
+                onPressed: (context) {
+                  authProvider.signOut();
+                  if (!authProvider.isAuthenticated) {
+                    context.go('/');
+                  }
+                },
+                trailing: const Icon(Icons.logout),
               ),
             ],
           ),

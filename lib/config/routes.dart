@@ -60,6 +60,7 @@ final router = GoRouter(
           navigatorKey: _sectionNavigatorKey1,
           routes: <RouteBase>[
             GoRoute(
+              redirect: handleAuthentication,
               path: '/home',
               builder: (context, state) => const HomeScreen(),
             ),
@@ -89,10 +90,12 @@ final router = GoRouter(
           navigatorKey: _sectionNavigatorKey4,
           routes: <RouteBase>[
             GoRoute(
+              redirect: handleAuthentication,
               path: '/settings',
               builder: (context, state) => const SettingsScreen(),
             ),
             GoRoute(
+              redirect: handleAuthentication,
               path: '/settings/opensource',
               builder: (context, state) => IsarExampleScreen(),
             ),
@@ -106,6 +109,7 @@ final router = GoRouter(
 /// Check wether the User is logged in and authorized to see the screen
 String? handleAuthentication(BuildContext context, GoRouterState state) {
   final isAuthenticated = context.read<AuthProvider>().isAuthenticated;
+  debugPrint('Handle: $isAuthenticated');
   if (!isAuthenticated) {
     return '/login';
   } else {

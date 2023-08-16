@@ -1,7 +1,9 @@
 import 'package:fluster/components/custom_text_field.dart';
+import 'package:fluster/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 /// This [LoginScreen] is visible when opening application with
 /// no authorization set.
@@ -40,6 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = context.watch<AuthProvider>();
     return Scaffold(
       body: Center(
         child: Card(
@@ -73,7 +76,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     //     backgroundColor: MaterialStatePropertyAll(
                     //         themeProvider.getTheme().colorScheme.
                     // onSecondary)),
-                    onPressed: () => context.go('/home'),
+                    onPressed: () {
+                      authProvider.signIn();
+                      if (authProvider.isAuthenticated) {
+                        context.go('/home');
+                      }
+                    },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(AppLocalizations.of(context)!.loginButton),
