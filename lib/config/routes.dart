@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fluster/providers/auth_provider.dart';
 import 'package:fluster/screens/dio/dio_screen.dart';
 import 'package:fluster/screens/error/error_screen.dart';
@@ -7,6 +9,7 @@ import 'package:fluster/screens/login/login_screen.dart';
 import 'package:fluster/screens/main_scaffold.dart';
 import 'package:fluster/screens/settings/settings_screen.dart';
 import 'package:fluster/screens/splash/lottie_splash_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -21,11 +24,12 @@ final _sectionNavigatorKey4 = GlobalKey<NavigatorState>();
 /// GoRouter configuration
 final router = GoRouter(
   navigatorKey: _rootNavigatorKey,
-  initialLocation: '/splash',
+  initialLocation:
+      (!kIsWeb && (Platform.isAndroid || Platform.isIOS)) ? '/text' : '/',
   errorBuilder: (context, state) => ErrorScreen(state.error),
   routes: <RouteBase>[
     GoRoute(
-      path: '/splash',
+      path: '/',
       builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(

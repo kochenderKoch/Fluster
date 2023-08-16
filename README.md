@@ -12,7 +12,7 @@
   - [ ] Mac 
   - [ ] Web
 - [ ] Lokale Datenbank Anbindung
-  - [x] [Isar-Database](https://github.com/isar/isar)
+  - [x] [Isar-Database](https://github.com/isar/isar) - v4 with web support
   - [ ] [Hive-Database](https://pub.dev/packages/hive)
 - [ ] Network Traffic
   - [x] Dio-Framework - [Medium-Example](https://medium.com/dreamwod-tech/flutter-dio-framework-best-practices-668985fc75b7), [LogRocket-Example](https://blog.logrocket.com/networking-flutter-using-dio/)
