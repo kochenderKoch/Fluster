@@ -6,10 +6,15 @@ import 'package:fluster/providers/dio_provider.dart';
 import 'package:fluster/providers/logging_provider.dart';
 import 'package:fluster/providers/settings_provider.dart';
 import 'package:fluster/providers/text_provider.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  if (kIsWeb) {
+    await Isar.initialize();
+  }
   runApp(
     MultiProvider(
       providers: [

@@ -8,18 +8,18 @@ part 'text.g.dart';
 @collection
 class Text {
   /// Constructor for [Text]
-  Text(this.text);
+  Text(this.id, this.text);
 
   /// A necessary factory constructor for creating a new User instance
   /// from a map. Pass the map to the generated `_$TextFromJson()` constructor.
   /// The constructor is named after the source class, in this case, User.
   factory Text.fromJson(Map<String, dynamic> json) => _$TextFromJson(json);
 
-  /// AutoIncrement [Id]
-  Id id = Isar.autoIncrement;
+  /// AutoIncrement [int] Id
+  int id;
 
   /// [text] of the Dataset. The value is indexed.
-  @Index(type: IndexType.value)
+  @Index(name: 'text')
   String? text;
 
   /// `toJson` is the convention for a class to declare support for

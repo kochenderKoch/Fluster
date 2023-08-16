@@ -3,420 +3,240 @@
 part of 'text.dart';
 
 // **************************************************************************
-// IsarCollectionGenerator
+// _IsarCollectionGenerator
 // **************************************************************************
 
 // coverage:ignore-file
-// ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
+// ignore_for_file: duplicate_ignore, invalid_use_of_protected_member, lines_longer_than_80_chars, constant_identifier_names, avoid_js_rounded_ints, no_leading_underscores_for_local_identifiers, require_trailing_commas, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_in_if_null_operators, library_private_types_in_public_api, prefer_const_constructors
+// ignore_for_file: type=lint
 
 extension GetTextCollection on Isar {
-  IsarCollection<Text> get texts => this.collection();
+  IsarCollection<int, Text> get texts => this.collection();
 }
 
-const TextSchema = CollectionSchema(
-  name: r'Text',
-  id: -8259714933044043777,
-  properties: {
-    r'text': PropertySchema(
-      id: 0,
-      name: r'text',
-      type: IsarType.string,
-    )
-  },
-  estimateSize: _textEstimateSize,
-  serialize: _textSerialize,
-  deserialize: _textDeserialize,
-  deserializeProp: _textDeserializeProp,
-  idName: r'id',
-  indexes: {
-    r'text': IndexSchema(
-      id: 5145922347574273553,
-      name: r'text',
-      unique: false,
-      replace: false,
-      properties: [
-        IndexPropertySchema(
-          name: r'text',
-          type: IndexType.value,
-          caseSensitive: true,
-        )
-      ],
-    )
-  },
-  links: {},
-  embeddedSchemas: {},
-  getId: _textGetId,
-  getLinks: _textGetLinks,
-  attach: _textAttach,
-  version: '3.1.0+1',
+const TextSchema = IsarCollectionSchema(
+  schema:
+      '{"name":"Text","idName":"id","properties":[{"name":"text","type":"String"}]}',
+  converter: IsarObjectConverter<int, Text>(
+    serialize: serializeText,
+    deserialize: deserializeText,
+    deserializeProperty: deserializeTextProp,
+  ),
+  embeddedSchemas: [],
+  //hash: -6684291194938812420,
 );
 
-int _textEstimateSize(
-  Text object,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  var bytesCount = offsets.last;
+@isarProtected
+int serializeText(IsarWriter writer, Text object) {
   {
     final value = object.text;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
+    if (value == null) {
+      IsarCore.writeNull(writer, 1);
+    } else {
+      IsarCore.writeString(writer, 1, value);
     }
   }
-  return bytesCount;
-}
-
-void _textSerialize(
-  Text object,
-  IsarWriter writer,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  writer.writeString(offsets[0], object.text);
-}
-
-Text _textDeserialize(
-  Id id,
-  IsarReader reader,
-  List<int> offsets,
-  Map<Type, List<int>> allOffsets,
-) {
-  final object = Text(
-    reader.readStringOrNull(offsets[0]),
-  );
-  object.id = id;
-  return object;
-}
-
-P _textDeserializeProp<P>(
-  IsarReader reader,
-  int propertyId,
-  int offset,
-  Map<Type, List<int>> allOffsets,
-) {
-  switch (propertyId) {
-    case 0:
-      return (reader.readStringOrNull(offset)) as P;
-    default:
-      throw IsarError('Unknown property with id $propertyId');
-  }
-}
-
-Id _textGetId(Text object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _textGetLinks(Text object) {
-  return [];
+@isarProtected
+Text deserializeText(IsarReader reader) {
+  final int _id;
+  _id = IsarCore.readId(reader);
+  final String? _text;
+  _text = IsarCore.readString(reader, 1);
+  final object = Text(
+    _id,
+    _text,
+  );
+  return object;
 }
 
-void _textAttach(IsarCollection<dynamic> col, Id id, Text object) {
-  object.id = id;
-}
-
-extension TextQueryWhereSort on QueryBuilder<Text, Text, QWhere> {
-  QueryBuilder<Text, Text, QAfterWhere> anyId() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(const IdWhereClause.any());
-    });
-  }
-
-  QueryBuilder<Text, Text, QAfterWhere> anyText() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        const IndexWhereClause.any(indexName: r'text'),
-      );
-    });
+@isarProtected
+dynamic deserializeTextProp(IsarReader reader, int property) {
+  switch (property) {
+    case 0:
+      return IsarCore.readId(reader);
+    case 1:
+      return IsarCore.readString(reader, 1);
+    default:
+      throw ArgumentError('Unknown property: $property');
   }
 }
 
-extension TextQueryWhere on QueryBuilder<Text, Text, QWhereClause> {
-  QueryBuilder<Text, Text, QAfterWhereClause> idEqualTo(Id id) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
-      ));
-    });
-  }
+sealed class _TextUpdate {
+  bool call({
+    required int id,
+    String? text,
+  });
+}
 
-  QueryBuilder<Text, Text, QAfterWhereClause> idNotEqualTo(Id id) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
-            )
-            .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
-            );
-      } else {
-        return query
-            .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
-            )
-            .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
-            );
-      }
-    });
-  }
+class _TextUpdateImpl implements _TextUpdate {
+  const _TextUpdateImpl(this.collection);
 
-  QueryBuilder<Text, Text, QAfterWhereClause> idGreaterThan(Id id,
-      {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
-      );
-    });
-  }
+  final IsarCollection<int, Text> collection;
 
-  QueryBuilder<Text, Text, QAfterWhereClause> idLessThan(Id id,
-      {bool include = false}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
-      );
-    });
-  }
-
-  QueryBuilder<Text, Text, QAfterWhereClause> idBetween(
-    Id lowerId,
-    Id upperId, {
-    bool includeLower = true,
-    bool includeUpper = true,
+  @override
+  bool call({
+    required int id,
+    Object? text = ignore,
   }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
-        includeLower: includeLower,
-        upper: upperId,
-        includeUpper: includeUpper,
-      ));
-    });
+    return collection.updateProperties([
+          id
+        ], {
+          if (text != ignore) 1: text as String?,
+        }) >
+        0;
   }
+}
 
-  QueryBuilder<Text, Text, QAfterWhereClause> textIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'text',
-        value: [null],
-      ));
-    });
-  }
+sealed class _TextUpdateAll {
+  int call({
+    required List<int> id,
+    String? text,
+  });
+}
 
-  QueryBuilder<Text, Text, QAfterWhereClause> textIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'text',
-        lower: [null],
-        includeLower: false,
-        upper: [],
-      ));
-    });
-  }
+class _TextUpdateAllImpl implements _TextUpdateAll {
+  const _TextUpdateAllImpl(this.collection);
 
-  QueryBuilder<Text, Text, QAfterWhereClause> textEqualTo(String? text) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'text',
-        value: [text],
-      ));
-    });
-  }
+  final IsarCollection<int, Text> collection;
 
-  QueryBuilder<Text, Text, QAfterWhereClause> textNotEqualTo(String? text) {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'text',
-              lower: [],
-              upper: [text],
-              includeUpper: false,
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'text',
-              lower: [text],
-              includeLower: false,
-              upper: [],
-            ));
-      } else {
-        return query
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'text',
-              lower: [text],
-              includeLower: false,
-              upper: [],
-            ))
-            .addWhereClause(IndexWhereClause.between(
-              indexName: r'text',
-              lower: [],
-              upper: [text],
-              includeUpper: false,
-            ));
-      }
-    });
-  }
-
-  QueryBuilder<Text, Text, QAfterWhereClause> textGreaterThan(
-    String? text, {
-    bool include = false,
+  @override
+  int call({
+    required List<int> id,
+    Object? text = ignore,
   }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'text',
-        lower: [text],
-        includeLower: include,
-        upper: [],
-      ));
+    return collection.updateProperties(id, {
+      if (text != ignore) 1: text as String?,
     });
   }
+}
 
-  QueryBuilder<Text, Text, QAfterWhereClause> textLessThan(
-    String? text, {
-    bool include = false,
+extension TextUpdate on IsarCollection<int, Text> {
+  _TextUpdate get update => _TextUpdateImpl(this);
+
+  _TextUpdateAll get updateAll => _TextUpdateAllImpl(this);
+}
+
+sealed class _TextQueryUpdate {
+  int call({
+    String? text,
+  });
+}
+
+class _TextQueryUpdateImpl implements _TextQueryUpdate {
+  const _TextQueryUpdateImpl(this.query, {this.limit});
+
+  final IsarQuery<Text> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? text = ignore,
   }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'text',
-        lower: [],
-        upper: [text],
-        includeUpper: include,
-      ));
+    return query.updateProperties(limit: limit, {
+      if (text != ignore) 1: text as String?,
     });
   }
+}
 
-  QueryBuilder<Text, Text, QAfterWhereClause> textBetween(
-    String? lowerText,
-    String? upperText, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'text',
-        lower: [lowerText],
-        includeLower: includeLower,
-        upper: [upperText],
-        includeUpper: includeUpper,
-      ));
-    });
-  }
+extension TextQueryUpdate on IsarQuery<Text> {
+  _TextQueryUpdate get updateFirst => _TextQueryUpdateImpl(this, limit: 1);
 
-  QueryBuilder<Text, Text, QAfterWhereClause> textStartsWith(
-      String TextPrefix) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.between(
-        indexName: r'text',
-        lower: [TextPrefix],
-        upper: ['$TextPrefix\u{FFFFF}'],
-      ));
-    });
-  }
-
-  QueryBuilder<Text, Text, QAfterWhereClause> textIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addWhereClause(IndexWhereClause.equalTo(
-        indexName: r'text',
-        value: [''],
-      ));
-    });
-  }
-
-  QueryBuilder<Text, Text, QAfterWhereClause> textIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      if (query.whereSort == Sort.asc) {
-        return query
-            .addWhereClause(IndexWhereClause.lessThan(
-              indexName: r'text',
-              upper: [''],
-            ))
-            .addWhereClause(IndexWhereClause.greaterThan(
-              indexName: r'text',
-              lower: [''],
-            ));
-      } else {
-        return query
-            .addWhereClause(IndexWhereClause.greaterThan(
-              indexName: r'text',
-              lower: [''],
-            ))
-            .addWhereClause(IndexWhereClause.lessThan(
-              indexName: r'text',
-              upper: [''],
-            ));
-      }
-    });
-  }
+  _TextQueryUpdate get updateAll => _TextQueryUpdateImpl(this);
 }
 
 extension TextQueryFilter on QueryBuilder<Text, Text, QFilterCondition> {
-  QueryBuilder<Text, Text, QAfterFilterCondition> idEqualTo(Id value) {
+  QueryBuilder<Text, Text, QAfterFilterCondition> idEqualTo(
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> idGreaterThan(
-    Id value, {
-    bool include = false,
-  }) {
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 0,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Text, Text, QAfterFilterCondition> idGreaterThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> idLessThan(
-    Id value, {
-    bool include = false,
-  }) {
+    int value,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 0,
+          value: value,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Text, Text, QAfterFilterCondition> idLessThanOrEqualTo(
+    int value,
+  ) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 0,
+          value: value,
+        ),
+      );
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> idBetween(
-    Id lower,
-    Id upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
+    int lower,
+    int upper,
+  ) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 0,
+          lower: lower,
+          upper: upper,
+        ),
+      );
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> textIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'text',
-      ));
+      return query.addFilterCondition(const IsNullCondition(property: 1));
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> textIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'text',
-      ));
+    return QueryBuilder.apply(not(), (query) {
+      return query.addFilterCondition(const IsNullCondition(property: 1));
     });
   }
 
@@ -425,60 +245,90 @@ extension TextQueryFilter on QueryBuilder<Text, Text, QFilterCondition> {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'text',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> textGreaterThan(
     String? value, {
-    bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'text',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Text, Text, QAfterFilterCondition> textGreaterThanOrEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> textLessThan(
     String? value, {
-    bool include = false,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'text',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        LessCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<Text, Text, QAfterFilterCondition> textLessThanOrEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> textBetween(
     String? lower,
     String? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'text',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 1,
+          lower: lower,
+          upper: upper,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -487,11 +337,13 @@ extension TextQueryFilter on QueryBuilder<Text, Text, QFilterCondition> {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'text',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        StartsWithCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
@@ -500,69 +352,98 @@ extension TextQueryFilter on QueryBuilder<Text, Text, QFilterCondition> {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'text',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        EndsWithCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> textContains(String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'text',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        ContainsCondition(
+          property: 1,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> textMatches(String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'text',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
+      return query.addFilterCondition(
+        MatchesCondition(
+          property: 1,
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> textIsEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'text',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        const EqualCondition(
+          property: 1,
+          value: '',
+        ),
+      );
     });
   }
 
   QueryBuilder<Text, Text, QAfterFilterCondition> textIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'text',
-        value: '',
-      ));
+      return query.addFilterCondition(
+        const GreaterCondition(
+          property: 1,
+          value: '',
+        ),
+      );
     });
   }
 }
 
 extension TextQueryObject on QueryBuilder<Text, Text, QFilterCondition> {}
 
-extension TextQueryLinks on QueryBuilder<Text, Text, QFilterCondition> {}
-
 extension TextQuerySortBy on QueryBuilder<Text, Text, QSortBy> {
-  QueryBuilder<Text, Text, QAfterSortBy> sortByText() {
+  QueryBuilder<Text, Text, QAfterSortBy> sortById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'text', Sort.asc);
+      return query.addSortBy(0);
     });
   }
 
-  QueryBuilder<Text, Text, QAfterSortBy> sortByTextDesc() {
+  QueryBuilder<Text, Text, QAfterSortBy> sortByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'text', Sort.desc);
+      return query.addSortBy(0, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<Text, Text, QAfterSortBy> sortByText(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        1,
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<Text, Text, QAfterSortBy> sortByTextDesc(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        1,
+        sort: Sort.desc,
+        caseSensitive: caseSensitive,
+      );
     });
   }
 }
@@ -570,48 +451,79 @@ extension TextQuerySortBy on QueryBuilder<Text, Text, QSortBy> {
 extension TextQuerySortThenBy on QueryBuilder<Text, Text, QSortThenBy> {
   QueryBuilder<Text, Text, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(0);
     });
   }
 
   QueryBuilder<Text, Text, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
+      return query.addSortBy(0, sort: Sort.desc);
     });
   }
 
-  QueryBuilder<Text, Text, QAfterSortBy> thenByText() {
+  QueryBuilder<Text, Text, QAfterSortBy> thenByText(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'text', Sort.asc);
+      return query.addSortBy(1, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Text, Text, QAfterSortBy> thenByTextDesc() {
+  QueryBuilder<Text, Text, QAfterSortBy> thenByTextDesc(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'text', Sort.desc);
+      return query.addSortBy(1, sort: Sort.desc, caseSensitive: caseSensitive);
     });
   }
 }
 
 extension TextQueryWhereDistinct on QueryBuilder<Text, Text, QDistinct> {
-  QueryBuilder<Text, Text, QDistinct> distinctByText(
+  QueryBuilder<Text, Text, QAfterDistinct> distinctByText(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'text', caseSensitive: caseSensitive);
+      return query.addDistinctBy(1, caseSensitive: caseSensitive);
     });
   }
 }
 
-extension TextQueryProperty on QueryBuilder<Text, Text, QQueryProperty> {
-  QueryBuilder<Text, int, QQueryOperations> idProperty() {
+extension TextQueryProperty1 on QueryBuilder<Text, Text, QProperty> {
+  QueryBuilder<Text, int, QAfterProperty> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addProperty(0);
     });
   }
 
-  QueryBuilder<Text, String?, QQueryOperations> textProperty() {
+  QueryBuilder<Text, String?, QAfterProperty> textProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'text');
+      return query.addProperty(1);
+    });
+  }
+}
+
+extension TextQueryProperty2<R> on QueryBuilder<Text, R, QAfterProperty> {
+  QueryBuilder<Text, (R, int), QAfterProperty> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(0);
+    });
+  }
+
+  QueryBuilder<Text, (R, String?), QAfterProperty> textProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(1);
+    });
+  }
+}
+
+extension TextQueryProperty3<R1, R2>
+    on QueryBuilder<Text, (R1, R2), QAfterProperty> {
+  QueryBuilder<Text, (R1, R2, int), QOperations> idProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(0);
+    });
+  }
+
+  QueryBuilder<Text, (R1, R2, String?), QOperations> textProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(1);
     });
   }
 }
@@ -621,8 +533,9 @@ extension TextQueryProperty on QueryBuilder<Text, Text, QQueryProperty> {
 // **************************************************************************
 
 Text _$TextFromJson(Map<String, dynamic> json) => Text(
+      json['id'] as int,
       json['text'] as String?,
-    )..id = json['id'] as int;
+    );
 
 Map<String, dynamic> _$TextToJson(Text instance) => <String, dynamic>{
       'id': instance.id,
