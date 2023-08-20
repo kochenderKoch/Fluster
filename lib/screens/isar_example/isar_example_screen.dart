@@ -52,13 +52,13 @@ class IsarExampleScreen extends StatelessWidget {
                 onPressed: () async {
                   final db = await textProvider.database.db;
                   await textProvider.addText(m_text.Text(
-                      db.texts.autoIncrement(), _controllerAdd.text));
+                      db.texts.autoIncrement(), _controllerAdd.text,),);
                 },
                 child: Text(AppLocalizations.of(context)!.addButton),
-              )
+              ),
             ],
           ),
-        )
+        ),
       ],
     );
   }

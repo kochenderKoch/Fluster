@@ -85,7 +85,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     isSelected: [
                       settings.themeMode == ThemeMode.light,
                       settings.themeMode == ThemeMode.dark,
-                      settings.themeMode == ThemeMode.system
+                      settings.themeMode == ThemeMode.system,
                     ],
                     children: [
                       Column(
@@ -96,7 +96,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             size: 15,
                           ),
                           Text(' ${AppLocalizations.of(context)!.lightMode} ')
-                        ],
+                        ,],
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -106,7 +106,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             size: 15,
                           ),
                           Text(' ${AppLocalizations.of(context)!.darkMode} ')
-                        ],
+                        ,],
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -118,7 +118,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Text(
                             ' ${AppLocalizations.of(context)!.systemMode} ',
                           )
-                        ],
+                        ,],
                       ),
                     ],
                   ),
@@ -223,12 +223,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                     //Text("Build-Signature: ${_packageInfo.buildSignature}"),
                     const Text('Developed by kochenderKoch')
-                  ],
+                  ,],
                 ),
               ),
             ],
           )
-        ],
+        ,],
       ),
     );
   }

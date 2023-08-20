@@ -84,7 +84,7 @@ class DioExampleScreen extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );

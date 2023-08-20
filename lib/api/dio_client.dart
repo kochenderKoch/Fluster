@@ -56,7 +56,6 @@ class DioClient {
   Future<ApiResult<List<KontestsModel>>> getKontests() async {
     try {
       // Perform GET request to the endpoint "/users/<id>"
-      // TODO(kochenderKoch): Change Options to JSON
       // ignore: omit_local_variable_types
       final Response<List<dynamic>> response = await _dio.get(
         Endpoints.getAllKontests,

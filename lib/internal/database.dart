@@ -1,5 +1,5 @@
 import 'package:fluster/models/text.dart';
-import 'package:flutter/foundation.dart' show kReleaseMode, kIsWeb;
+import 'package:flutter/foundation.dart' show kIsWeb, kReleaseMode;
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 
@@ -22,6 +22,8 @@ class IsarDatabase {
       return Isar.open(
         schemas: [TextSchema],
         directory: dir.path,
+        engine: IsarEngine.sqlite,
+        encryptionKey: 'superSecretKey!',
         // ignore: avoid_redundant_argument_values
         inspector: !kReleaseMode,
       );
@@ -30,6 +32,7 @@ class IsarDatabase {
         schemas: [TextSchema],
         directory: Isar.sqliteInMemory,
         engine: IsarEngine.sqlite,
+        encryptionKey: 'superSecretKey',
         // ignore: avoid_redundant_argument_values
         inspector: !kReleaseMode,
       );
@@ -47,7 +50,7 @@ class IsarDatabase {
   /// Remove a [Text] from the matching table in the [db]
   Future<void> removeText(Text mail) async {
     final isar = await db;
-    final existingEmail = await isar.texts.get(mail.id);
+    final existingEmail = isar.texts.get(mail.id);
     isar.write((isar2) {
       isar2.texts.delete(existingEmail!.id); // delete
     });

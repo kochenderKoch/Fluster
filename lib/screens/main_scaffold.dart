@@ -1,8 +1,6 @@
-import 'package:fluster/providers/text_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 /// This [MainScaffold] is always visible after sucessfull login.
 ///
@@ -16,19 +14,9 @@ class MainScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textProvider = context.watch<TextProvider>();
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          if (navigationShell.currentIndex == 1)
-            IconButton(
-              onPressed: textProvider.getTexts,
-              icon: const Icon(Icons.refresh),
-            )
-          else
-            const SizedBox.shrink()
-        ],
-      ),
+      appBar: AppBar(),
+      extendBodyBehindAppBar: true,
       body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,

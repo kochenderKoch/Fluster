@@ -14,16 +14,34 @@ extension GetTextCollection on Isar {
   IsarCollection<int, Text> get texts => this.collection();
 }
 
-const TextSchema = IsarCollectionSchema(
-  schema:
-      '{"name":"Text","idName":"id","properties":[{"name":"text","type":"String"}]}',
+const TextSchema = IsarGeneratedSchema(
+  schema: IsarSchema(
+    name: 'Text',
+    idName: 'id',
+    embedded: false,
+    properties: [
+      IsarPropertySchema(
+        name: 'text',
+        type: IsarType.string,
+      ),
+    ],
+    indexes: [
+      IsarIndexSchema(
+        name: 'text',
+        properties: [
+          "text",
+        ],
+        unique: false,
+        hash: false,
+      ),
+    ],
+  ),
   converter: IsarObjectConverter<int, Text>(
     serialize: serializeText,
     deserialize: deserializeText,
     deserializeProperty: deserializeTextProp,
   ),
   embeddedSchemas: [],
-  //hash: -6684291194938812420,
 );
 
 @isarProtected
@@ -145,6 +163,34 @@ extension TextQueryUpdate on IsarQuery<Text> {
   _TextQueryUpdate get updateFirst => _TextQueryUpdateImpl(this, limit: 1);
 
   _TextQueryUpdate get updateAll => _TextQueryUpdateImpl(this);
+}
+
+class _TextQueryBuilderUpdateImpl implements _TextQueryUpdate {
+  const _TextQueryBuilderUpdateImpl(this.query, {this.limit});
+
+  final QueryBuilder<Text, Text, QOperations> query;
+  final int? limit;
+
+  @override
+  int call({
+    Object? text = ignore,
+  }) {
+    final q = query.build();
+    try {
+      return q.updateProperties(limit: limit, {
+        if (text != ignore) 1: text as String?,
+      });
+    } finally {
+      q.close();
+    }
+  }
+}
+
+extension TextQueryBuilderUpdate on QueryBuilder<Text, Text, QOperations> {
+  _TextQueryUpdate get updateFirst =>
+      _TextQueryBuilderUpdateImpl(this, limit: 1);
+
+  _TextQueryUpdate get updateAll => _TextQueryBuilderUpdateImpl(this);
 }
 
 extension TextQueryFilter on QueryBuilder<Text, Text, QFilterCondition> {

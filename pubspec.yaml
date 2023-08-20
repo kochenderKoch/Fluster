@@ -19,8 +19,8 @@ dependencies:
   go_router: ^10.0.0
   http: ^1.1.0
   intl: any
-  isar: ^4.0.0-dev.9 #^3.1.0
-  isar_flutter_libs: ^4.0.0-dev.9 #^3.1.0
+  isar: ^4.0.0-dev.10 #^3.1.0
+  isar_flutter_libs: ^4.0.0-dev.10 #^3.1.0
   json_annotation: ^4.8.1
   lottie: ^2.6.0
   package_info_plus: ^4.0.2
@@ -28,6 +28,7 @@ dependencies:
   provider: ^6.0.5
   settings_ui: ^2.0.2
   shared_preferences: ^2.1.0
+  showcaseview: ^2.0.3
   talker: ^3.1.1
   talker_dio_logger: ^2.3.0
   talker_flutter: ^3.2.9

@@ -10,37 +10,44 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 void main() async {
   if (kIsWeb) {
     await Isar.initialize();
   }
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => AuthProvider(),
+    ShowCaseWidget(
+      autoPlay: true,
+      autoPlayDelay: const Duration(seconds: 5),
+      builder: Builder(
+        builder: (context) => MultiProvider(
+          providers: [
+            ChangeNotifierProvider(
+              create: (_) => AuthProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => LoggingProvider(),
+            ),
+            ChangeNotifierProvider(
+              create: (_) => TextProvider(),
+            ),
+            ChangeNotifierProxyProvider<LoggingProvider, DioProvider>(
+              create: (context) => DioProvider(
+                context.read<LoggingProvider>(),
+              ),
+              update: (context, value, previous) {
+                previous?.setLoggingProvider(value);
+                return previous ?? DioProvider(value);
+              },
+            ),
+            ChangeNotifierProvider(
+              create: (_) => SettingsProvider(),
+            ),
+          ],
+          child: const FlusterApp(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => LoggingProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => TextProvider(),
-        ),
-        ChangeNotifierProxyProvider<LoggingProvider, DioProvider>(
-          create: (context) => DioProvider(
-            context.read<LoggingProvider>(),
-          ),
-          update: (context, value, previous) {
-            previous?.setLoggingProvider(value);
-            return previous ?? DioProvider(value);
-          },
-        ),
-        ChangeNotifierProvider(
-          create: (_) => SettingsProvider(),
-        ),
-      ],
-      child: const FlusterApp(),
+      ),
     ),
   );
 }

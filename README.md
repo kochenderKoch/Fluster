@@ -39,8 +39,11 @@
     - [ ] Rive
   - [ ] Buttons
 - [ ] Exception Handling
+- [ ] Start-Tour
+  - [ ] [showcaseview](https://pub.dev/packages/showcaseview) 
 - [x] Routes - [Medium](https://medium.com/@antonio.tioypedro1234/flutter-go-router-the-essential-guide-349ef39ec5b3)
-  - [x] [go_router](https://pub.dev/packages/go_router) 
+  - [x] [go_router](https://pub.dev/packages/go_router)
+- [ ] fluid_dialog
 
 
 

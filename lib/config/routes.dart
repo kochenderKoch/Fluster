@@ -62,7 +62,7 @@ final router = GoRouter(
             GoRoute(
               redirect: handleAuthentication,
               path: '/home',
-              builder: (context, state) => const HomeScreen(),
+              builder: (context, state) => HomeScreen(),
             ),
           ],
         ),
@@ -93,11 +93,6 @@ final router = GoRouter(
               redirect: handleAuthentication,
               path: '/settings',
               builder: (context, state) => const SettingsScreen(),
-            ),
-            GoRoute(
-              redirect: handleAuthentication,
-              path: '/settings/opensource',
-              builder: (context, state) => IsarExampleScreen(),
             ),
           ],
         ),

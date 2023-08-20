@@ -21,7 +21,7 @@ class ErrorScreen extends StatelessWidget {
                 context.go('/home');
               },
               child: const Text('Zurück zu Home'),
-            )
+            ),
           ],
         ),
       ),

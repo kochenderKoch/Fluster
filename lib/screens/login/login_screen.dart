@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:showcaseview/showcaseview.dart';
 
 /// This [LoginScreen] is visible when opening application with
 /// no authorization set.
@@ -22,6 +23,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   TextEditingController controllerUsername = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
+
+  final GlobalKey _one = GlobalKey();
 
   @override
   void initState() {
@@ -60,10 +63,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     child: Text(AppLocalizations.of(context)!.login),
                   ),
-                  CustomTextField(
-                    controller: controllerUsername,
-                    prefixIcon: const Icon(Icons.person),
-                    hintText: AppLocalizations.of(context)!.username,
+                  Showcase(
+                    key: _one,
+                    description: 'Test',
+                    child: CustomTextField(
+                      controller: controllerUsername,
+                      prefixIcon: const Icon(Icons.person),
+                      hintText: AppLocalizations.of(context)!.username,
+                    ),
                   ),
                   CustomTextField(
                     controller: controllerPassword,
@@ -85,6 +92,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Text(AppLocalizations.of(context)!.loginButton),
+                    ),
+                  ),
+                  ElevatedButton(
+                    // style: ButtonStyle(
+                    //     backgroundColor: MaterialStatePropertyAll(
+                    //         themeProvider.getTheme().colorScheme.
+                    // onSecondary)),
+                    onPressed: () {
+                      ShowCaseWidget.of(context).startShowCase([_one]);
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: Text('SHOWCASE'),
                     ),
                   ),
                 ],
