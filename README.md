@@ -5,7 +5,10 @@
 ### Features
 - [x] Internationalization
 - [x] Theme (FlexScheme)
-- [x] API-Call Wrapper 
+- [x] API-Call Wrapper
+- [ ] State-Management
+  - [x] Provider - [pub.dev](https://pub.dev/packages/provider)
+  - [ ] Riverpod - [pub.dev](https://pub.dev/packages/riverpod)
 - [ ] Github-Action: Build & Release
   - [x] Windows
   - [ ] Linux
@@ -44,7 +47,25 @@
 - [x] Routes - [Medium](https://medium.com/@antonio.tioypedro1234/flutter-go-router-the-essential-guide-349ef39ec5b3)
   - [x] [go_router](https://pub.dev/packages/go_router)
 - [ ] fluid_dialog
+- [ ] Offline-First
+  - [ ] [siehe Isar Example](https://github.com/isar/isar/tree/main/examples/pub)
+  - [ ] [Stock](https://pub.dev/packages/stock)
+- [ ] Functional Programming
+  - [ ] [Dartz](https://pub.dev/packages/dartz) (Eather<L, R>)  
 
+```mermaid
+gitGraph
+    commit id: "Start"
+    commit
+    branch develop
+    checkout develop
+    commit
+    commit
+    checkout main
+    merge develop
+    commit
+    commit id: "End"
+```
 
 
 [Best Practices](https://proxify.io/articles/best-practices-for-building-a-scalable-flutter-app#optimal-use-of-constructors)
